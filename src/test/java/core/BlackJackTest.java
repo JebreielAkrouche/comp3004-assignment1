@@ -72,6 +72,7 @@ public class BlackJackTest extends TestCase {
 	}
 	
 	public void testInitCards () {
+		System.out.println("public void testInitCards");
 		Deck d = new Deck();
 		d.Generate();
 		d.Shuffle();
@@ -95,6 +96,7 @@ public class BlackJackTest extends TestCase {
 	}
 	
 	public void testInitBJ () {
+		System.out.println("public void testInitBJ");
 		User u1 = new User();
 		u1.AddCard(new Card("S", "A"));
 		u1.AddCard(new Card("S", "K"));
@@ -110,6 +112,7 @@ public class BlackJackTest extends TestCase {
 		bj.dealerLi.clear();
 		bj.dealerLi.add(e1);
 		bj.PrintCards(1);
+		assertEquals(0, bj.checkWin(bj.userLi, bj.dealerLi));
 		System.out.println();
 		
 		User u2 = new User();
@@ -126,6 +129,84 @@ public class BlackJackTest extends TestCase {
 		bj2.dealerLi.clear();
 		bj2.dealerLi.add(e2);
 		bj2.PrintCards(1);
+		assertEquals(1, bj.checkWin(bj.userLi, bj.dealerLi));
+		System.out.println();
+	}
+	
+	public void testBJ () {
+		System.out.println("public void testBJ");
+		User u1 = new User();
+		u1.AddCard(new Card("C", "10"));
+		u1.AddCard(new Card("S", "5"));
+		u1.AddCard(new Card("H", "6"));
+		
+		Dealer e1 = new Dealer();
+		e1.AddCard(new Card("D", "7"));
+		e1.AddCard(new Card("C", "J"));
+		
+		BlackJack bj = new BlackJack();
+		
+		bj.userLi.clear();
+		bj.userLi.add(u1);
+		bj.dealerLi.clear();
+		bj.dealerLi.add(e1);
+		bj.PrintCards(1);
+		assertEquals(1, bj.checkWin(bj.userLi, bj.dealerLi));
+		System.out.println();
+		
+		User u2 = new User();
+		u2.AddCard(new Card("H", "K"));
+		u2.AddCard(new Card("C", "8"));
+		
+		Dealer e2 = new Dealer();
+		e2.AddCard(new Card("S", "A"));
+		e2.AddCard(new Card("D", "J"));
+		
+		BlackJack bj2 = new BlackJack();
+		bj2.userLi.clear();
+		bj2.userLi.add(u2);
+		bj2.dealerLi.clear();
+		bj2.dealerLi.add(e2);
+		bj2.PrintCards(1);
+		assertEquals(0, bj.checkWin(bj.userLi, bj.dealerLi));
+		System.out.println();
+	}
+	
+	public void testScoreCompare () {
+		System.out.println("public void testScoreCompare");
+		User u1 = new User();
+		u1.AddCard(new Card("S", "10"));
+		u1.AddCard(new Card("H", "9"));
+		
+		Dealer e1 = new Dealer();
+		e1.AddCard(new Card("S", "7"));
+		e1.AddCard(new Card("C", "K"));
+		
+		BlackJack bj = new BlackJack();
+		
+		bj.userLi.clear();
+		bj.userLi.add(u1);
+		bj.dealerLi.clear();
+		bj.dealerLi.add(e1);
+		bj.PrintCards(1);
+		assertEquals(1, bj.checkWin(bj.userLi, bj.dealerLi));
+		System.out.println();
+		
+		User u2 = new User();
+		u2.AddCard(new Card("S", "Q"));
+		u2.AddCard(new Card("C", "8"));
+		
+		Dealer e2 = new Dealer();
+		e2.AddCard(new Card("D", "9"));
+		e2.AddCard(new Card("D", "K"));
+		
+		BlackJack bj2 = new BlackJack();
+		bj2.userLi.clear();
+		bj2.userLi.add(u2);
+		bj2.dealerLi.clear();
+		bj2.dealerLi.add(e2);
+		bj2.PrintCards(1);
+		assertEquals(0, bj.checkWin(bj.userLi, bj.dealerLi));
 		System.out.println();
 	}
 	

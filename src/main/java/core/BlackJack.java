@@ -8,6 +8,39 @@ public class BlackJack {
 	static List<GamePlayer> dealerLi = new ArrayList<GamePlayer>();
 	static Deck deck = new Deck();
 	
+	// checks who won the game, 0 for the dealer, 1 for the player
+	// -1 on error
+	public int checkWin(List<GamePlayer> user, List<GamePlayer> dealer) {
+		int topUser = 0;
+		int topDealer = 0;
+		for(int u = 0; u < user.size(); u++) {
+			int currValue = user.get(u).Count();
+			if((currValue > topUser) && (currValue <= 21)) {
+				topUser = currValue;
+			}
+		}
+		for(int d = 0; d < dealer.size(); d++) {
+			int currValue = dealer.get(d).Count();
+			if((currValue > topDealer) && (currValue <= 21)) {
+				topDealer = currValue;
+			}
+		}
+		
+		// Check who wins
+		if(topDealer >= topUser) {
+			if(topDealer >= 0) {
+				return 0;
+			}
+		}
+		else {
+			if(topUser >= 0) {
+				return 1;
+			}
+		}
+		
+		return -1;
+	}
+	
 	public void PrintCards(int gameEnd) {
 		System.out.print("D: ");
 		for(int d = 0; d < dealerLi.size(); d++) {
